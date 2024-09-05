@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & OEM Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container, .oem-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            display: none;
+        }
+
+        .login-container.active, .oem-container.active {
+            display: block;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Form -->
+    <div class="login-container active" id="login-form">
+        <h3 class="mb-4 text-center">Login</h3>
+        <form>
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <button type="button" class="btn btn-primary w-100" onclick="showOEMForm()">Login</button>
+        </form>
+    </div>
+
+    <!-- OEM Selection Form -->
+    <div class="oem-container" id="oem-form">
+        <h3 class="mb-4 text-center">OEM Selection</h3>
+        <form id="oemSelectionForm">
+            <div class="mb-3">
+                <label for="oemEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="oemEmail" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="oemSelect" class="form-label">Select OEM Company</label>
+                <select class="form-select" id="oemSelect">
+                    <option value="" selected disabled>Select OEM</option>
+                    <option>Microsoft</option>
+                    <option>Apple</option>
+                    <option>Samsung</option>
+                    <option>Huawei</option>
+                    <option>Cisco</option>
+                    <option>IBM</option>
+                    <option>HP</option>
+                    <option>Dell</option>
+                    <option>Lenovo</option>
+                    <option>Oracle</option>
+                    <option>Siemens</option>
+                    <option>Sony</option>
+                    <option>Intel</option>
+                    <option>Panasonic</option>
+                    <option>Toshiba</option>
+                </select>
+            </div>
+            <div class="mb-3" id="additionalFields" style="display:none;">
+                <label for="personName" class="form-label">Person Name</label>
+                <input type="text" class="form-control" id="personName" placeholder="Enter your name">
+                <label for="organisationName" class="form-label mt-3">Organisation</label>
+                <input type="text" class="form-control" id="organisationName" placeholder="Enter your organisation">
+            </div>
+            <button type="button" class="btn btn-primary w-100" id="oemSubmitBtn" onclick="submitOEMForm()">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showOEMForm() {
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('oem-form').classList.add('active');
+        }
+
+        document.getElementById('oemSelect').addEventListener('change', function() {
+            document.getElementById('additionalFields').style.display = 'block';
+        });
+
+        function submitOEMForm() {
+            const email = document.getElementById('oemEmail').value;
+            const oem = document.getElementById('oemSelect').value;
+            const personName = document.getElementById('personName').value;
+            const organisation = document.getElementById('organisationName').value;
+
+            if (email && oem && personName && organisation) {
+                alert(`Alert system is on for ${oem}. The threats will be sent to ${email}.`);
+            } else {
+                alert("Please fill in all the fields.");
+            }
+        }
+    </script>
+</body>
+</html>

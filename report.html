@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/reportStyle.css">
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Select OEM</div>
+            <div class="list-group list-group-flush">
+                <a href="/" class="list-group-item list-group-item-action bg-dark text-white" onclick="selectCompany('Company C')">Home</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white" onclick="selectCompany('Company A')">Hardware</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white" onclick="selectCompany('Company B')">Software</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Threats</h5>
+                                <p class="card-text" id="total-sales">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Increase Percentage</h5>
+                                <p class="card-text" id="profit-margin">0%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Severity</h5>
+                                <p class="card-text" id="market-share">0%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="profitChart"></canvas>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <canvas id="marketShareChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/reportScript.js"></script>
+</body>
+</html>

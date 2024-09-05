@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Monitoring Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic styles for the modal */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">VulnMonitor</div>
+        <div class="user-profile">Admin</div>
+    </header>
+
+    <aside class="sidebar">
+        <ul>
+            <li><a href="#" onclick="showTab('hardware')" class="active">Hardware 🔧</a></li>
+            <li><a href="#" onclick="showTab('software')">Software 💻</a></li>
+            <li><a href="/report.html">Reports 📊</a></li>
+            <li><a href="/alertSys.html">Set Alerts 🔔</a></li>
+            <li><a href="#">Settings ⚙️</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <section id="hardware" class="dashboard-tab active">
+            <h2>Hardware Vulnerabilities</h2>
+            <div class="dashboard">
+                <div class="card critical">Critical: <span>1</span></div>
+                <div class="card high">High: <span>1</span></div>
+                <div class="card medium">Medium: <span>0</span></div>
+                <div class="card low">Low: <span>0</span></div>
+            </div>
+            <section class="alerts">
+                <h3>Recent Hardware Alerts</h3>
+                <div class="sorting-controls">
+                    <button onclick="sortAlerts('severity')">Sort by Severity</button>
+                    <button onclick="sortAlerts('date')">Sort by Date</button>
+                </div>
+                <input type="text" id="hardware-search" placeholder="Search hardware vulnerabilities..." onkeyup="filterAlerts('hardware')">
+                <table id="hardware-alertsTable">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>OEM</th>
+                            <th>Severity</th>
+                            <th>Vulnerability</th>
+                            <th>Mitigation</th>
+                            <th>Published Date</th>
+                            <th>Unique ID</th>
+                            <th>Summarize</th> <!-- New column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="critical-row">
+                            <td>Router X100</td>
+                            <td>Cisco</td>
+                            <td class="severity critical">Critical</td>
+                            <td>Unauthorized access vulnerability</td>
+                            <td><a href="https://www.cisco.com/go/security" target="_blank">Update firmware to v2.1.0</a></td>
+                            <td>Aug 2024</td>
+                            <td>CVE-2024-12345</td>
+                            <td><button onclick="showPopup('https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20120926-c10k-tunnels')">Summarize</button></td> <!-- New button -->
+                        </tr>
+                        <!-- Add more rows as needed -->
+                        <tr class="high-row">
+                            <td>Firewall Z300</td>
+                            <td>Palo Alto</td>
+                            <td class="severity high">High</td>
+                            <td>Remote code execution</td>
+                            <td><a href="https://www.paloaltonetworks.com/security-advisories" target="_blank">Apply patch #3456</a></td>
+                            <td>Jul 2024</td>
+                            <td>CVE-2024-23456</td>
+                            <td><button onclick="showPopup('https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20120926-c10k-tunnels')">Summarize</button></td> <!-- New button -->
+
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <section id="software" class="dashboard-tab">
+            <h2>Software Vulnerabilities</h2>
+            <div class="dashboard">
+                <div class="card critical">Critical: <span>1</span></div>
+                <div class="card high">High: <span>0</span></div>
+                <div class="card medium">Medium: <span>0</span></div>
+                <div class="card low">Low: <span>0</span></div>
+            </div>
+            <section class="alerts">
+                <h3>Recent Software Alerts</h3>
+                <div class="sorting-controls">
+                    <button onclick="sortAlerts('severity')">Sort by Severity</button>
+                    <button onclick="sortAlerts('date')">Sort by Date</button>
+                </div>
+                <input type="text" id="software-search" placeholder="Search software vulnerabilities..." onkeyup="filterAlerts('software')">
+                <table id="software-alertsTable">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>OEM</th>
+                            <th>Severity</th>
+                            <th>Vulnerability</th>
+                            <th>Mitigation</th>
+                            <th>Published Date</th>
+                            <th>Unique ID</th>
+                            <th>Summarize</th> <!-- New column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="critical-row">
+                            <td>Microsoft Edge</td>
+                            <td>Microsoft</td>
+                            <td class="severity critical">Critical</td>
+                            <td>Memory corruption in V8 engine</td>
+                            <td><a href="https://learn.microsoft.com/en-us/DeployEdge/microsoft-edge-relnotes-security" target="_blank">Update to version 90.0.4430.212</a></td>
+                            <td>Jun 2024</td>
+                            <td>CVE-2024-34567</td>
+                            <td><button onclick="showPopup('https://learn.microsoft.com/en-us/DeployEdge/microsoft-edge-relnotes-security')">Summarize</button></td> <!-- New button -->
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </main>
+
+       <!-- Modal Structure -->
+       <div id="modal" style="display:none;">
+        <div id="modal-content">
+          <span id="summary-text"></span>
+          <button onclick="closeModal()">Close</button>
+        </div>
+      </div>
+      
+
+    <script src="scripts.js"></script>
+   
+
+</body>
+</html>
